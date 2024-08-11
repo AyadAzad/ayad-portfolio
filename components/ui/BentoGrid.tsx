@@ -10,6 +10,7 @@ import { BackgroundGradientAnimation } from "./GradientBg";
 import GridGlobe from "./GridGlobe";
 import animationData from "@/data/confetti.json";
 import MagicButton from "../MagicButton";
+import {FaDownload, FaLocationArrow} from "react-icons/fa6";
 
 export const BentoGrid = ({
   className,
@@ -193,6 +194,19 @@ export const BentoGridItem = ({
                 otherClasses="!bg-[#161A31]"
               />
             </div>
+          )}
+          {/* Add button for id 1 here */}
+          {id === 1 && (
+              <div className="mt-5 flex justify-center">
+                <a download="/Software-Engineering-resume.pdf">
+                <MagicButton
+                    title="Download Resume"
+                    icon={<FaDownload />}
+                    position="right"
+
+                />
+                </a>
+              </div>
           )}
         </div>
       </div>
