@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { IoCopyOutline } from "react-icons/io5";
+import { IoCopyOutline, IoArrowForward, IoArrowBack  } from "react-icons/io5";
 
 import Lottie from "react-lottie";
 import { cn } from "@/lib/utils";
-
 
 import { BackgroundGradientAnimation } from "./GradientBg";
 import GridGlobe from "./GridGlobe";
 import animationData from "@/data/confetti.json";
 import MagicButton from "../MagicButton";
 import {FaDownload} from "react-icons/fa6";
+import {Any} from "@react-spring/types";
 
 export const BentoGrid = ({
   className,
@@ -51,11 +51,18 @@ export const BentoGridItem = ({
   titleClassName?: string;
   spareImg?: string;
 }) => {
-  const leftLists = ["./icons8-nextjs-240.png", "./icons8-react-js-240.png", "./icons8-typescript-240.png"];
-  const rightLists = ["./icons8-nodejs-240.png", "./icons8-express-js-240.png", "./icons8-mongodb-240.png"];
 
+  // Stack Array
+  const [LeftListsArray, setLeftLists] = useState<string[]>(
+      ["./icons8-nextjs-240.png", "./icons8-react-js-240.png", "./icons8-typescript-240.png"]
+  );
+  const [RightListsArray, setRightLists] = useState(
+      ["./icons8-nodejs-240.png", "./icons8-express-js-240.png", "./icons8-mongodb-240.png"]
+  )
+  const [countButtonClicks, setCountButtonClicks] = useState<number>(0)
+
+  const [buttonText, setButtonText] = useState("Add MySQL");
   const [copied, setCopied] = useState(false);
-
   const defaultOptions = {
     loop: copied,
     autoplay: copied,
@@ -70,7 +77,32 @@ export const BentoGridItem = ({
     navigator.clipboard.writeText(text);
     setCopied(true);
   };
+  const handleButtonClick = () => {
+    setCountButtonClicks(prevCount => (prevCount + 1) % 3);
 
+    if (countButtonClicks === 0) {
+      replaceItem(2, 'mysql-svgrepo-com.svg')
+      setButtonText("Add Spring Boot");
+    } else if (countButtonClicks === 1) {
+      replaceItem(0, './icons8-spring-boot-240.png');
+      setButtonText("Add PostgreSQL");
+    } else if (countButtonClicks === 2) {
+      replaceItem(1, './icons8-postgresql-240.png');
+      setButtonText("Did you like it ?");
+    }
+    else if (countButtonClicks > 3 ){
+      setLeftLists(LeftListsArray)
+      setButtonText("Add MySQL")
+    }
+  };
+  const replaceItem = (index: number, newValue: string): void => {
+    setRightLists(prevItems => {
+      // Create a new array with the updated value
+      const newItems = [...prevItems];
+      newItems[index] = newValue;
+      return newItems;
+    });
+  };
   return (
       <>
     <div
@@ -130,8 +162,7 @@ export const BentoGridItem = ({
           <div className="font-sans font-extralight md:max-w-32 md:text-xs lg:text-base text-sm text-[#C1C2D3] z-10">
             {description}
           </div>
-          {/* add text-3xl max-w-96 , remove text-neutral-600 dark:text-neutral-300*/}
-          {/* remove mb-2 mt-2 */}
+
           <div
             className={`font-sans text-lg lg:text-3xl max-w-96 font-bold z-10`}
           >
@@ -144,9 +175,11 @@ export const BentoGridItem = ({
           {/* Tech stack list div */}
           {id === 3 && (
             <div className="flex gap-1 lg:gap-5 w-fit absolute -right-3 lg:-right-2">
+                <MagicButton title={buttonText} icon={''} position={'right'} handleClick={() => handleButtonClick()}
+                />
               {/* tech stack lists */}
               <div className="flex flex-col gap-3 md:gap-3 lg:gap-8 mt-10">
-                {leftLists.map((item, i) => (
+                {LeftListsArray.map((item, i) => (
                     <div key={i}
                          className="border border-white/[.2] rounded-full lg:w-12 lg:h-12 w-12 h-12 flex justify-center items-center">
                       <img src={item} alt="stack images"/>
@@ -156,7 +189,7 @@ export const BentoGridItem = ({
               </div>
               <div className="flex flex-col gap-3 md:gap-3 lg:gap-8 mb-15">
               <span className="lg:py-4 lg:px-3 py-4 px-3  rounded-lg text-center"></span>
-                {rightLists.map((item, i) => (
+                {RightListsArray.map((item, i) => (
                     <div key={i} className="border border-white/[.2] rounded-full lg:w-12 lg:h-12 w-12 h-12 flex justify-center items-center">
                     <img src={item} alt="stack images"/>
                     </div>
@@ -164,6 +197,53 @@ export const BentoGridItem = ({
               </div>
             </div>
           )}
+          {/*{id === 3 && !showMySQLState && (*/}
+          {/*    <>*/}
+          {/*      <IoArrowForward*/}
+          {/*          className="text-2xl cursor-pointer"*/}
+          {/*          onClick={() => {*/}
+          {/*            toggleMySQLStack();*/}
+          {/*            replaceItem(2, "./mysql-svgrepo-com.svg")*/}
+          {/*          }}*/}
+          {/*      />*/}
+
+          {/*    </>*/}
+
+
+          {/*)}*/}
+          {/*{id === 3 && showMySQLState && (*/}
+          {/*    <>*/}
+          {/*      <IoArrowForward*/}
+          {/*          className="text-2xl cursor-pointer"*/}
+          {/*          onClick={() => {*/}
+          {/*            replaceItem(1, './icons8-spring-boot-240.png')*/}
+          {/*            setShowMySQLState(false)*/}
+          {/*            toggleSpringBootStack()*/}
+
+          {/*          }}*/}
+          {/*      />*/}
+          {/*    <IoArrowBack*/}
+          {/*        className="text-2xl cursor-pointer"*/}
+          {/*        onClick={() => {*/}
+          {/*          setLeftLists(["./icons8-nextjs-240.png", "./icons8-react-js-240.png", "./icons8-typescript-240.png"])*/}
+          {/*          setRightLists(["./icons8-nodejs-240.png", "./icons8-express-js-240.png", "./icons8-mongodb-240.png"])*/}
+          {/*          setShowMySQLState(false)*/}
+
+          {/*        }}*/}
+          {/*    />*/}
+
+          {/*    </>*/}
+          {/*)}*/}
+          {/*{id === 3 && showSpringBootState && (*/}
+          {/*    <IoArrowBack*/}
+          {/*        className="text-2xl cursor-pointer"*/}
+          {/*        onClick={() => {*/}
+          {/*         replaceItem(1, './icons8-express-js-240.png')*/}
+
+          {/*        }}*/}
+          {/*    />*/}
+          {/*)}*/}
+
 
           {id === 7 && (
               <div className="mt-5 relative">
