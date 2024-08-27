@@ -220,7 +220,7 @@ export const BentoGridItem = ({
           {/* Add button for id 1 here */}
           {id === 1 && (
               <div className="mt-5 flex justify-center">
-                <a download="/Software-Engineering-resume.pdf">
+                <a href="/Software-Engineering-resume.pdf" download="/Software-Engineering-resume.pdf">
                   <MagicButton
                       title="Download Resume"
                       icon={<FaDownload/>}
