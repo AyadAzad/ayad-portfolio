@@ -78,7 +78,11 @@ export const BentoGridItem = ({
     setCopied(true);
   };
   const handleButtonClick = () => {
+// to stop the increment if it's greater than 2 '
+    if(countButtonClicks < 2) {
     setCountButtonClicks(prevCount => (prevCount + 1) % 3);
+
+    }
 
     if (countButtonClicks === 0) {
       replaceItem(2, 'mysql-svgrepo-com.svg')
@@ -86,13 +90,9 @@ export const BentoGridItem = ({
     } else if (countButtonClicks === 1) {
       replaceItem(0, './icons8-spring-boot-240.png');
       setButtonText("Add PostgreSQL");
-    } else if (countButtonClicks === 2) {
+    } else {
       replaceItem(1, './icons8-postgresql-240.png');
-      setButtonText("Did you like it ?");
-    }
-    else if (countButtonClicks > 3 ){
-      setLeftLists(LeftListsArray)
-      setButtonText("Add MySQL")
+      setButtonText("Now Scroll Down");
     }
   };
   const replaceItem = (index: number, newValue: string): void => {
@@ -197,55 +197,9 @@ export const BentoGridItem = ({
               </div>
             </div>
           )}
-          {/*{id === 3 && !showMySQLState && (*/}
-          {/*    <>*/}
-          {/*      <IoArrowForward*/}
-          {/*          className="text-2xl cursor-pointer"*/}
-          {/*          onClick={() => {*/}
-          {/*            toggleMySQLStack();*/}
-          {/*            replaceItem(2, "./mysql-svgrepo-com.svg")*/}
-          {/*          }}*/}
-          {/*      />*/}
-
-          {/*    </>*/}
 
 
-          {/*)}*/}
-          {/*{id === 3 && showMySQLState && (*/}
-          {/*    <>*/}
-          {/*      <IoArrowForward*/}
-          {/*          className="text-2xl cursor-pointer"*/}
-          {/*          onClick={() => {*/}
-          {/*            replaceItem(1, './icons8-spring-boot-240.png')*/}
-          {/*            setShowMySQLState(false)*/}
-          {/*            toggleSpringBootStack()*/}
-
-          {/*          }}*/}
-          {/*      />*/}
-          {/*    <IoArrowBack*/}
-          {/*        className="text-2xl cursor-pointer"*/}
-          {/*        onClick={() => {*/}
-          {/*          setLeftLists(["./icons8-nextjs-240.png", "./icons8-react-js-240.png", "./icons8-typescript-240.png"])*/}
-          {/*          setRightLists(["./icons8-nodejs-240.png", "./icons8-express-js-240.png", "./icons8-mongodb-240.png"])*/}
-          {/*          setShowMySQLState(false)*/}
-
-          {/*        }}*/}
-          {/*    />*/}
-
-          {/*    </>*/}
-          {/*)}*/}
-          {/*{id === 3 && showSpringBootState && (*/}
-          {/*    <IoArrowBack*/}
-          {/*        className="text-2xl cursor-pointer"*/}
-          {/*        onClick={() => {*/}
-          {/*         replaceItem(1, './icons8-express-js-240.png')*/}
-
-          {/*        }}*/}
-          {/*    />*/}
-          {/*)}*/}
-
-
-          {id === 7 && (
+          {id === 6 && (
               <div className="mt-5 relative">
                 <div
                     className={`absolute -bottom-5 right-0 ${copied ? "block" : "block"
