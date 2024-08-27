@@ -2,7 +2,7 @@ import { nextui } from '@nextui-org/theme';
 import type { Config } from 'tailwindcss';
 import svgToDataUri from 'mini-svg-data-uri';
 import colors from 'tailwindcss/colors';
-import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette';
+// import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette';
 
 // Define the Tailwind CSS configuration
 const config: Config = {
@@ -182,7 +182,7 @@ const config: Config = {
               )})`,
             }),
           },
-          { values: flattenColorPalette(theme('colors')), type: 'color' }
+          // { values: flattenColorPalette(theme('colors')), type: 'color' }
       );
     },
     nextui,
@@ -191,14 +191,14 @@ const config: Config = {
 
 // Function to add CSS variables for colors
 function addVariablesForColors({ addBase, theme }: any) {
-  const allColors = flattenColorPalette(theme('colors'));
-  const newVars = Object.fromEntries(
-      Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
+  // const allColors = flattenColorPalette(theme('colors'));
+  // const newVars = Object.fromEntries(
+  //     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  // );
 
-  addBase({
-    ':root': newVars,
-  });
+  // addBase({
+  //   ':root': newVars,
+  // });
 }
 
 export default config;
